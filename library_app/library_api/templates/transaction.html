@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!-- Django template inheritance tag -->
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Search and functionalities - start -->
+
+<h3 class="title">Transaction</h3>
+<div class="services service" >
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Search the books.." class="search-input" name="search">
+        <button type="submit" class="search-btn" >Search</button>
+    </form>
+</div>
+
+<!-- Search and functionalities - start -->
+
+<!-- Book Table start -->
+<div>
+    <h4>Total transaction : {{tot_transaction}}</h4>
+</div>
+<br>
+<table>
+
+    <thead class="table-head">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>Date of Issue</th>
+    </thead>
+
+    <tbody>
+        
+        {% for transaction_data in data %}
+
+        <tr>
+            <td>{{transaction_data.id}}</td>
+            <td>{{transaction_data.name}}</td>
+            <td>{{transaction_data.issue_book}}</td>
+            <td>{{transaction_data.issue_book_author}}</td>
+            <td>{{transaction_data.issue_date}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- Book Table -  end -->
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+<!-- Django template inheritance tag -->
+
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block main_content %}
+
+<!-- Card structure show detail - start -->
+
+<div class="card">
+
+    <div class="container update-container">
+        
+        <h3>Adding New Member</h3>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <label>reference_id : </label><input type="text" name="reference_id" required><br>
+            <label>member_name : </label><input type="text" name="member_name" required><br>
+            <label>Contact : </label><input type="text" name="contact" required><br>
+            <label>Place : </label><input type="text" name="place" required><br>
+            <label>No of rental : </label><input type="number" max="10" min="0" name="no_of_rental" required><br>
+            <button type="submit" class="search-btn">Create</button>
+            <a href="/members" style="color: blue;">Go Back</a>
+        </form>
+    </div>
+</div>
+
+<!-- Card structure show detail - end -->
+
+{% endblock %}

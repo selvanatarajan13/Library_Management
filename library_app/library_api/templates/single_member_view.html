@@ -1,0 +1,49 @@
+<!-- Django template inheritance tag -->
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Card structure show detail - start -->
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Member details</h1>
+        <br>
+        <p>
+            member_name : {{data.member_name}}
+        </p>
+        <p>
+            reference_id : {{data.reference_id}}
+        </p>
+        <p>
+            contact : {{data.contact}}
+        </p>
+        <p>
+            no_of_rental : {{data.no_of_rental}}
+        </p>
+        
+        <button class="search-btn" onclick="del()">
+            <a href="{% url 'delete_member' data.reference_id %}">delete</a>
+        </button>
+
+        <button class="search-btn">Return Book</button>
+        <br><br>
+        <a href="/members" style="color: blue;">Go Back</a>
+        
+    </div>
+</div>
+
+<script>
+    function del() {
+      confirm("Confirm to delete");
+    }
+    </script>
+    
+
+<!-- Card structure show detail - end -->
+
+{% endblock %}

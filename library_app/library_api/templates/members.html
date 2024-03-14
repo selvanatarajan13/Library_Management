@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- Django template inheritance tag -->
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Search and functionalities - start -->
+
+<h3 class="title">Members details</h3>
+
+<div class="services">
+    <button class="search-btn">
+        <a href="Add_new_member">Add New</a>
+    </button>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Search the books.." class="search-input" name="search">
+        <button type="submit" class="search-btn" >Search</button>
+    </form>
+</div>
+
+<!-- Search and functionalities - start -->
+
+<!-- Book Table start -->
+
+<table>
+
+    <thead class="table-m">
+        <th>ID</th>
+        <th>Name</th>
+        <th>No.of Book Issued</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <td>Action</td>
+    </thead>
+
+    <tbody>
+        
+        {% for member_data in data %}
+
+        <tr>
+            <td>{{member_data.reference_id}}</td>
+            <td>{{member_data.member_name}}</td>
+            <td>{{member_data.no_of_rental}}</td>
+            <td>{{member_data.contact}}</td>
+            <td>{{member_data.place}}</td>
+            <td>
+                <button class="search-btn">
+                <a href="{% url 'single_member_view' member_data.reference_id %}" >View</a>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- Book Table -  end -->
+
+
+{% endblock %}

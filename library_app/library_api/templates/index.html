@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Library System</title>
+        <link rel="stylesheet" href="{% static 'index.css' %}">
+    </head>
+    <body>
+
+        <!-- Navbar start -->
+        <header>
+            <nav>
+                <div>
+                    <h3>Library<span style="color: dodgerblue;">System</span></h3>
+                </div>
+    
+                <ul>
+                    <li>
+                        <a href="/">Books</a>
+                    </li>
+                    <li>
+                        <a href="/members">Members</a>
+                    </li>
+                    <li>
+                        <a href="/transaction">Transaction</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Navbar end -->
+        
+        <!-- Main container start -->
+        <div class="container">
+
+            {% block main_content %}
+
+            <!-- Search and functionalities - start -->
+            <h3 class="title">Library Books</h3>
+
+
+            <div class="services">
+                <button class="search-btn">
+                    <a href="Create_new_book">Add New</a>
+                </button>
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Here the name attribute is used for text collector. -->
+                    <input type="text" placeholder="Search books here.."  name="search" required>
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+            </div>
+
+            <!-- Search and functionalities - end -->
+
+            
+            <!-- Book Table start -->
+            <div>
+                <h4>Total Books are in the table : {{tot_book}}</h4>
+            </div>
+            <br>
+            <table>
+                <thead>
+                    <td>S.NO</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>publisher</td>
+                    <td>Action</td>
+                </thead>
+                <tbody>
+                    {% for books in data %}
+                    <tr>
+                        <td>{{books.bookID}}</td>
+                        <td>{{books.title}}</td>
+                        <td>{{books.authors}}</td>
+                        <td>{{books.publisher}}</td>
+                        <td>
+                            {% if books.bookID %}
+                                <button class="search-btn button" aria-label="button">
+                                    <a href="{% url 'single_book_view' books.bookID %}">View</a>
+                                </button>
+                                <br><br>
+                                <button class="search-btn button" aria-label="button">
+                                    <a href="{% url 'book_issue' books.bookID %}">issue</a>
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if book_not %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Boosk is not available..</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <!-- Book Table start -->
+
+            {% endblock %}
+
+        </div>
+        <!-- Main container start end -->
+
+    </body>
+</html>
